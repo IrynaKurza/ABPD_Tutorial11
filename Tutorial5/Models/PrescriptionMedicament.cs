@@ -14,12 +14,12 @@ public class PrescriptionMedicament
     public int IdPrescription { get; set; }
     
     [MaxLength(100)]
-    public string Dose { get; set; }
+    public string Dose { get; set; } = string.Empty;
     
     [Required]
     [MaxLength(100)]
-    public string Details { get; set; }
+    public string Details { get; set; } = string.Empty;
     
-    public Medicament Medicament { get; set; }
-    public Prescription Prescription { get; set; }
+    public Medicament Medicament { get; set; } = new Medicament();
+    public Prescription Prescription { get; set; } = new Prescription();
 }

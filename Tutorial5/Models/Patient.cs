@@ -10,14 +10,14 @@ public class Patient
     
     [Required]
     [MaxLength(100)]
-    public string FirstName { get; set; }
+    public string FirstName { get; set; } = string.Empty;
     
     [Required]
     [MaxLength(100)]
-    public string LastName { get; set; }
+    public string LastName { get; set; } = string.Empty;
     
     [Required]
     public DateTime Birthdate { get; set; }
     
-    public ICollection<Prescription> Prescriptions { get; set; }
+    public ICollection<Prescription> Prescriptions { get; set; } = new HashSet<Prescription>();
 }

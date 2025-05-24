@@ -15,11 +15,11 @@ public class Prescription
     
     [Required]
     public int IdPatient { get; set; }
-    public Patient Patient { get; set; }
+    public Patient Patient { get; set; } = new Patient();
     
     [Required]
     public int IdDoctor { get; set; }
-    public Doctor Doctor { get; set; }
+    public Doctor Doctor { get; set; } = new Doctor();
     
-    public ICollection<PrescriptionMedicament> PrescriptionMedicaments { get; set; }
+    public ICollection<PrescriptionMedicament> PrescriptionMedicaments { get; set; } = new List<PrescriptionMedicament>();
 }
