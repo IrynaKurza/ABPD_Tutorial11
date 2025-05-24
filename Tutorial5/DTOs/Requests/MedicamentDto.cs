@@ -1,8 +1,8 @@
-namespace Tutorial5.DTOs;
+namespace Tutorial5.DTOs.Requests;
 
 public class MedicamentDto
 {
     public int IdMedicament { get; set; }
-    public string Dose { get; set; }
-    public string Description { get; set; }
+    public string Dose { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

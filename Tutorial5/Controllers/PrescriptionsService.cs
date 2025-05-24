@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Tutorial5.DTOs;
+using Tutorial5.DTOs.Requests;
 using Tutorial5.Services;
 
 namespace Tutorial5.Controllers;

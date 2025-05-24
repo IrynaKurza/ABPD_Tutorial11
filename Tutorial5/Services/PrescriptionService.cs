@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Tutorial5.Data;
-using Tutorial5.DTOs;
+using Tutorial5.DTOs.Requests;
 using Tutorial5.Models;
 
 namespace Tutorial5.Services;

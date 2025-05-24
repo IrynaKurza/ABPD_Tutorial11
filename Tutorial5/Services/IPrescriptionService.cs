@@ -1,4 +1,4 @@
-using Tutorial5.DTOs;
+using Tutorial5.DTOs.Requests;
 
 namespace Tutorial5.Services;
 
