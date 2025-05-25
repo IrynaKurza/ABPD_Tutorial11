@@ -6,11 +6,11 @@ namespace Tutorial5.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class PrescriptionsService : ControllerBase
+public class PrescriptionsController : ControllerBase
 {
     private readonly IPrescriptionService _service;
 
-    public PrescriptionsService(IPrescriptionService service)
+    public PrescriptionsController(IPrescriptionService service)
     {
         _service = service;
     }
@@ -21,11 +21,15 @@ public class PrescriptionsService : ControllerBase
         try
         {
             await _service.AddPrescriptionAsync(request);
-            return Ok();
+            return Ok(new { message = "Prescription created successfully" });
         }
         catch (ArgumentException ex)
         {
-            return BadRequest(ex.Message);
+            return BadRequest(new { error = ex.Message });
+        }
+        catch (Exception)
+        {
+            return StatusCode(500, new { error = "An error occurred while creating the prescription" });
         }
     }
 }

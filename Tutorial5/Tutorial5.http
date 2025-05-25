@@ -1,6 +1,133 @@
 @Tutorial5_HostAddress = http://localhost:5109
 
-GET {{Tutorial5_HostAddress}}/weatherforecast/
-Accept: application/json
+### Test 1: Add a new prescription with existing patient
+POST http://localhost:5109/api/prescriptions
+Content-Type: application/json
 
-###
+{
+  "patient": {
+    "idPatient": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "birthdate": "1990-01-01T00:00:00"
+  },
+  "idDoctor": 1,
+  "medicaments": [
+    {
+      "idMedicament": 1,
+      "dose": "500mg",
+      "description": "Take twice daily with food"
+    },
+    {
+      "idMedicament": 2,
+      "dose": "200mg",
+      "description": "Take as needed for pain"
+    }
+  ],
+  "date": "2024-01-15T10:00:00",
+  "dueDate": "2024-01-20T10:00:00"
+}
+
+### Test 2: Add prescription with new patient (don't provide IdPatient or set to 0)
+POST http://localhost:5109/api/prescriptions
+Content-Type: application/json
+
+{
+  "patient": {
+    "idPatient": 0,
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "birthdate": "1985-03-15T00:00:00"
+  },
+  "idDoctor": 2,
+  "medicaments": [
+    {
+      "idMedicament": 3,
+      "dose": "250mg",
+      "description": "Take three times daily"
+    }
+  ],
+  "date": "2024-01-16T14:00:00",
+  "dueDate": "2024-01-26T14:00:00"
+}
+
+### Test 3: Try to add prescription with non-existent medicament (should fail)
+POST http://localhost:5109/api/prescriptions
+Content-Type: application/json
+
+{
+  "patient": {
+    "idPatient": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "birthdate": "1990-01-01T00:00:00"
+  },
+  "idDoctor": 1,
+  "medicaments": [
+    {
+      "idMedicament": 999,
+      "dose": "100mg",
+      "description": "Non-existent medicament"
+    }
+  ],
+  "date": "2024-01-15T10:00:00",
+  "dueDate": "2024-01-20T10:00:00"
+}
+
+### Test 4: Try to add prescription with too many medicaments (should fail)
+POST http://localhost:5109/api/prescriptions
+Content-Type: application/json
+
+{
+  "patient": {
+    "idPatient": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "birthdate": "1990-01-01T00:00:00"
+  },
+  "idDoctor": 1,
+  "medicaments": [
+    {"idMedicament": 1, "dose": "100mg", "description": "Med 1"},
+    {"idMedicament": 2, "dose": "100mg", "description": "Med 2"},
+    {"idMedicament": 3, "dose": "100mg", "description": "Med 3"},
+    {"idMedicament": 1, "dose": "100mg", "description": "Med 4"},
+    {"idMedicament": 2, "dose": "100mg", "description": "Med 5"},
+    {"idMedicament": 3, "dose": "100mg", "description": "Med 6"},
+    {"idMedicament": 1, "dose": "100mg", "description": "Med 7"},
+    {"idMedicament": 2, "dose": "100mg", "description": "Med 8"},
+    {"idMedicament": 3, "dose": "100mg", "description": "Med 9"},
+    {"idMedicament": 1, "dose": "100mg", "description": "Med 10"},
+    {"idMedicament": 2, "dose": "100mg", "description": "Med 11"}
+  ],
+  "date": "2024-01-15T10:00:00",
+  "dueDate": "2024-01-20T10:00:00"
+}
+
+### Test 5: Try to add prescription with DueDate before Date (should fail)
+POST http://localhost:5109/api/prescriptions
+Content-Type: application/json
+
+{
+  "patient": {
+    "idPatient": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "birthdate": "1990-01-01T00:00:00"
+  },
+  "idDoctor": 1,
+  "medicaments": [
+    {
+      "idMedicament": 1,
+      "dose": "500mg",
+      "description": "Take twice daily"
+    }
+  ],
+  "date": "2024-01-20T10:00:00",
+  "dueDate": "2024-01-15T10:00:00"
+}
+
+### Test 6: Get patient data with prescriptions
+GET http://localhost:5109/api/patients/1
+
+### Test 7: Get non-existent patient (should return 404)
+GET http://localhost:5109/api/patients/999
